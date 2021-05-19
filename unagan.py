@@ -41,7 +41,10 @@ def unagan(data_type = 'singing'):
   vocoder_model_dir = f'models/{data_type}/vocoder/'
   sys.path.append(vocoder_model_dir)
   import modules
-  vocoder_name = 'GRUGenerator'
+  if data_type == 'speech':
+    vocoder_name = 'OriginalGenerator'
+  else:
+    vocoder_name = 'GRUGenerator'
   MelGAN = getattr(modules, vocoder_name)
   vocoder = MelGAN(n_mel_channels, ngf, n_residual_layers)
   vocoder.eval()
