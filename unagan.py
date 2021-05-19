@@ -48,4 +48,4 @@ def unagan(data_type = 'singing'):
   vocoder_param_fp = os.path.join(vocoder_model_dir, 'params.pt')
   vocoder.load_state_dict(torch.load(vocoder_param_fp))
   vocoder = vocoder.cuda(0)
-  return generator, vocoder
+  return generator, vocoder, mean, std
