@@ -8,7 +8,7 @@ import time
 import pickle
 import random
 from collections import OrderedDict
-
+import argparse
 import sys
 sys.path.append('..')
 from src.training_manager import TrainingManager, get_current_time
@@ -33,7 +33,7 @@ class VocDataset(Dataset):
 
     def __getitem__(self, index):
         id = self.metadata[index]
-        voc_fp = os.path.join(self.path, id, 'vocals.npy')
+        voc_fp = os.path.join(self.path, f"{id}.npy")
 
         voc = np.load(voc_fp)
 
@@ -500,7 +500,12 @@ class Encoder(nn.Module):
 
 
 if __name__ == '__main__':
-    model_id = None
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model-id", type=str, default=None)
+    parser.add_argument("--batches-per-epoch", type=int, default=500)
+    args = parser.parse_args()
+    
+    model_id = args.model_id
 
     if model_id is None:
         model_id = get_current_time()
@@ -553,7 +558,7 @@ if __name__ == '__main__':
     # Training options
     init_lr = 0.0001
     num_epochs = 200
-    batches_per_epoch = 500
+    batches_per_epoch = args.batches_per_epoch
 
     lambda_cycle = 1
 
