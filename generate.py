@@ -6,7 +6,7 @@ import librosa
 import sys
 import numpy as np
 
-from pydub import AudioSegment
+
 
 import src.training_manager as manager
 import torch
@@ -197,7 +197,7 @@ def main(args):
     gid = args.gid
 
     seed = args.seed
-
+    from pydub import AudioSegment
     # ### Data type ###
     assert(data_type in ['singing', 'speech', 'piano', 'violin'])
 
