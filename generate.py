@@ -2,7 +2,7 @@ import os
 import argparse
 
 import yaml
-import librosa
+import soundfile as sf
 import sys
 import numpy as np
 
@@ -320,7 +320,7 @@ def main(args):
                 audio = audio.squeeze().cpu().numpy()
 
         # Save to wav
-        librosa.output.write_wav(out_fp_wav, audio, sr=sr)
+        sf.write(out_fp_wav, audio, sr=sr)
 
         # Convert to mp3
         AudioSegment.from_wav(out_fp_wav).export(out_fp_mp3, format="mp3")
